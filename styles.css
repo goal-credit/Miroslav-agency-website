@@ -446,6 +446,59 @@ img{ max-width: 100%; display: block; }
   /* font-weight: 650; */
 }
 
+/* feedback horizontal slider — edges match the container above */
+.feedbacktop{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.feedbackname{ margin: 0; font-size: 1.05rem; }
+.feedbackrole{
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+.feedbacktext{ margin: 12px 0 0; color: var(--muted); }
+.feedback-marquee{
+  /* match the container/section-head width so left & right edges line up */
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 8px 18px 16px;
+  overflow: hidden;
+  /* soften the edges as cards slide in/out */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.feedback-track{
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  margin: 0;
+  padding: 4px 0;
+  animation: feedback-scroll 60s linear infinite;
+}
+.feedback-marquee:hover .feedback-track{ animation-play-state: paused; }
+.feedback-track .feedbackcard{
+  flex: none;
+  width: 360px;
+  /* spacing lives on the item (not flex gap) so the -50% loop is seamless */
+  margin-right: 16px;
+}
+@keyframes feedback-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .feedback-marquee{
+    overflow-x: auto;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .feedback-track{ animation: none; }
+  .feedback-dup{ display: none; }
+}
+
 /* Trusted-by logo marquee */
 .logos{
   padding: 40px 0 48px;
